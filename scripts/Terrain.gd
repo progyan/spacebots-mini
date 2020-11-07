@@ -4,7 +4,7 @@ func _ready():
 	randomize()
 	var list = [300]
 	for i in range(110):
-		list.append(list[-1] + randi() % 50 - 25)
+		list.append(list[-1] + randi() % 100 - 50)
 	set_terrain(list)
 
 func set_terrain(terrain):
