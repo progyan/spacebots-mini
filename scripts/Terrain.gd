@@ -1,9 +1,10 @@
 extends StaticBody2D
 
 func _ready():
-	var list = []
-	for i in range(100):
-		list.append(randi() % 300)
+	randomize()
+	var list = [300]
+	for i in range(110):
+		list.append(list[-1] + randi() % 50 - 25)
 	set_terrain(list)
 
 func set_terrain(terrain):
@@ -11,4 +12,4 @@ func set_terrain(terrain):
 	for i in range(len(terrain)):
 		polygon.append(Vector2(i * 10, terrain[i]))
 	$Polygon2D.polygon = polygon
-	$CollisionShape2D.shape.segments = polygon
+	$CollisionShape2D.polygon = polygon
