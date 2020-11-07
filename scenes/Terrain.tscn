@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://images/dirtCenter.png" type="Texture" id=1]
+[ext_resource path="res://scripts/Terrain.gd" type="Script" id=2]
+
+[sub_resource type="ConcavePolygonShape2D" id=1]
+
+[node name="Terrain" type="StaticBody2D"]
+script = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+position = Vector2( 90, 64 )
+scale = Vector2( 1, 1.05724 )
+antialiased = true
+texture = ExtResource( 1 )
