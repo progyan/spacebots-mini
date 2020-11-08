@@ -1,22 +1,24 @@
 extends KinematicBody2D
 
 const SPEED = 200
-const GRAVITY = 300
+const ACCEL = 10
+const DECEL = 0.95
+const GRAVITY = 100
 const JUMP_SPEED = -150;
+const EPSILON = 30;
 const UP = Vector2(0, -1)
 
 var motion = Vector2()
-
-var left = false
-var right = false
+var anim = 0
 
 func run():
-	if (Input.is_action_pressed("ui_right") and not Input.is_action_pressed("ui_left")) or right:
-		motion.x = SPEED
-	elif (Input.is_action_pressed("ui_left") and not Input.is_action_pressed("ui_right")) or left:
-		motion.x = -SPEED
+	if (Input.is_action_pressed("ui_right") and not Input.is_action_pressed("ui_left")):
+		motion.x += ACCEL
+	elif (Input.is_action_pressed("ui_left") and not Input.is_action_pressed("ui_right")):
+		motion.x -= ACCEL
 	else:
-		motion.x = 0
+		motion.x *= DECEL
+	motion.x = clamp(motion.x, -SPEED, SPEED)
 
 func fall(delta):
 	if is_on_floor():
@@ -36,3 +38,15 @@ func update_motion(delta):
 func jump():
 	if Input.is_action_pressed("ui_up") and is_on_floor():
 		motion.y = JUMP_SPEED
+
+func _process(delta):
+	animate()
+
+func animate():
+	anim = "default"
+	if abs(motion.x) > EPSILON:
+		anim = "walk"
+	if motion.y < 0:
+		anim = "jump"
+	$Sprite.animation = anim
+	$Sprite.flip_h = motion.x < 0
