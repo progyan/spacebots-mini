@@ -3,8 +3,8 @@ extends StaticBody2D
 func _ready():
 	randomize()
 	var list = [300]
-	for i in range(110):
-		list.append(list[-1] + randi() % 100 - 50)
+	for i in range(1000):
+		list.append(list[-1] + randi() % 10 - 5)
 	set_terrain(list)
 
 func set_terrain(terrain):
